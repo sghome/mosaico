@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 function generateImageMosaic() {
   // Cargar la imagen de referencia
-  var referenceImage = $('<img>').attr('src', 'https://www.almagua.org/wp-content/uploads/2022/09/DSC02533.jpg');
+  var referenceImage = $('<img>').attr('src', 'https://cdn.glitch.global/c536c49d-7661-4fd9-81b8-918d12539028/DSC02533.jpeg');
   referenceImage.on('load', function() {
     var mosaicContainer = $('#mosaic-container');
     var mosaicWidth = referenceImage[0].naturalWidth;
