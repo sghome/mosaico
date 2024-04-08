@@ -18,7 +18,7 @@ function generateImageMosaic() {
 
     // Obtener los datos del Google Sheets y generar el mosaico
     $.ajax({
-      url: 'https://script.google.com/macros/s/AKfycbyu51aGJ9axQ0oi7kgrBIvGrOxWWLxVE9rSzp_5OjEMHouwfD6Cz1aszqZmb1BQ5EqJ/exec',
+      url: 'https://script.google.com/macros/s/AKfycbwj5KXRO40ds4miC2R-LMXWBoMW2agUHMssbsoxcaY7zjJVD00t3BkSIqr6bIztps8k/exec',
       type: 'GET',
       dataType: 'json',
       success: function(data) {
