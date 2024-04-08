@@ -7,85 +7,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="mosaic-container">
-    <img id="mosaic-image" src="https://www.almagua.org/wp-content/uploads/2022/09/DSC02533.jpg" alt="Mosaico de Imágenes">
+  <div id="mosaic-container" onclick="showInfo(event)">
+    <!-- Aquí se generarán las imágenes dinámicamente -->
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-
-    $(document).ready(function() {
-  // Llamar a la función para cargar los datos del Google Sheets y generar el mosaico
-  generateImageMosaic();
-});
-
-function generateImageMosaic() {
-  // Obtener los datos del Google Sheets
-  $.ajax({
-    url: 'URL_DEL_SCRIPT_DE_GOOGLE_APPS_SCRIPT',
-    type: 'GET',
-    dataType: 'json',
-    success: function(data) {
-      // Crear el mosaico de imágenes
-      var mosaicContainer = $('#mosaic-container');
-      
-      $.each(data, function(index, user) {
-        var img = $('<img>').attr('src', user.imageUrl).addClass('mosaic-image');
-        mosaicContainer.append(img);
-        
-        // Agregar evento click para mostrar la información del usuario
-        img.click(function() {
-          alert('Nombre: ' + user.name + '\nInstagram: ' + user.instagram);
-        });
-      });
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.error('Error al obtener los datos del Google Sheets:', errorThrown);
-    }
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var image = document.getElementById('mosaic-image');
-  
-  image.addEventListener('wheel', function(event) {
-    event.preventDefault(); // Evitar el comportamiento por defecto de desplazamiento
-    
-    var scaleFactor = 1.1; // Factor de escala para el zoom
-    var delta = event.deltaY || event.detail || event.wheelDelta; // Determinar la dirección del scroll
-    
-    // Calcular la nueva escala de la imagen
-    var scale = delta < 0 ? scaleFactor : 1 / scaleFactor;
-    
-    // Aplicar la escala a la imagen
-    image.style.transform = 'scale(' + scale + ')';
-  });
-});
-
-  </script>
-
-   <script>function doGet() {
-  var ss = SpreadsheetApp.openByUrl('URL_DE_TU_GOOGLE_SHEET');
-  var sheet = ss.getSheetByName('Nombre_de_la_hoja');
-  var dataRange = sheet.getDataRange();
-  var data = dataRange.getValues();
-  
-  var imageData = [];
-  
-  for (var i = 1; i < data.length; i++) {
-    var imageUrl = data[i][0]; // Suponiendo que la URL de la imagen está en la primera columna
-    var name = data[i][1]; // Suponiendo que el nombre está en la segunda columna
-    var instagram = data[i][2]; // Suponiendo que el Instagram está en la tercera columna
-    
-    imageData.push({
-      imageUrl: imageUrl,
-      name: name,
-      instagram: instagram
-    });
-  }
-  
-  return ContentService.createTextOutput(JSON.stringify(imageData)).setMimeType(ContentService.MimeType.JSON);
-}
- </script>
+  <script src="script.js"></script>
 </body>
 </html>
