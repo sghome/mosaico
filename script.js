@@ -17,26 +17,27 @@ function generateImageMosaic() {
     });
 
     // Obtener los datos del Google Sheets y generar el mosaico
-    $.ajax({
-      url: 'https://script.google.com/macros/s/AKfycbwiGP23_jVB8R7FxQE2fVMbxIohkjjIkyqDI_st6T8f7jad3A0bABehgkAOYnuyBiJ2/exec',
-      type: 'GET',
-      dataType: 'json',
-      success: function(data) {
-        $.each(data.data, function(index, user) {
-          var img = $('<img>').attr('src', user.imageUrl).addClass('mosaic-image');
-          mosaicContainer.append(img);
-
-          img.click(function(event) {
-            event.stopPropagation(); // Evitar que el clic se propague al contenedor principal
-            showInfo(event, user);
-          });
-        });
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.error('Error al obtener los datos del Google Sheets:', errorThrown);
-      }
-    });
+    fetchImageData();
   });
+}
+
+function fetchImageData() {
+  fetch('https://script.google.com/macros/s/AKfycby3SEHlBeR9FiwW_45qtFO2DnHq2P3ro46gC5_r9vONMC3uFwxVMWF34aR7xahOY3PF/exec')
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(user => {
+        var img = $('<img>').attr('src', user.imageUrl).addClass('mosaic-image');
+        $('#mosaic-container').append(img);
+
+        img.click(function(event) {
+          event.stopPropagation(); // Evitar que el clic se propague al contenedor principal
+          showInfo(event, user);
+        });
+      });
+    })
+    .catch(error => {
+      console.error('Error al obtener los datos del Google Sheets:', error);
+    });
 }
 
 function showInfo(event, user) {
@@ -53,7 +54,7 @@ function showInfo(event, user) {
   zoomedImageContainer.fadeIn();
 }
 
-function hideZoomedImage() {
-  // Ocultar la imagen ampliada
-  $('#zoomed-image-container').fadeOut();
-}
+// Función para cerrar la imagen ampliada
+$(document).on('click', '#zoomed-image-container', function() {
+  $(this).fadeOut();
+});
