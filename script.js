@@ -22,7 +22,7 @@ function generateImageMosaic() {
       type: 'GET',
       dataType: 'json',
       success: function(data) {
-        $.each(data, function(index, user) {
+        $.each(data.data, function(index, user) {
           var img = $('<img>').attr('src', user.imageUrl).addClass('mosaic-image');
           mosaicContainer.append(img);
 
@@ -53,7 +53,7 @@ function showInfo(event, user) {
   zoomedImageContainer.fadeIn();
 }
 
-// Función para cerrar la imagen ampliada
-$(document).on('click', '#zoomed-image-container', function() {
-  $(this).fadeOut();
-});
+function hideZoomedImage() {
+  // Ocultar la imagen ampliada
+  $('#zoomed-image-container').fadeOut();
+}
