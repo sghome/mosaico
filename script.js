@@ -22,7 +22,7 @@ function generateImageMosaic() {
 }
 
 function fetchImageData() {
-  fetch('https://script.google.com/macros/s/AKfycby3SEHlBeR9FiwW_45qtFO2DnHq2P3ro46gC5_r9vONMC3uFwxVMWF34aR7xahOY3PF/exec')
+  fetch('https://script.google.com/macros/s/AKfycbyo_y3xPXlnW96xJGU1VUlsHCiapGjQROOmwJh9HhWLcVqnNmsSas8zgx7pkFhrsAmr8g/exec')
     .then(response => response.json())
     .then(data => {
       data.forEach(user => {
@@ -57,4 +57,11 @@ function showInfo(event, user) {
 // Función para cerrar la imagen ampliada
 $(document).on('click', '#zoomed-image-container', function() {
   $(this).fadeOut();
+});
+
+// Función para hacer zoom en los píxeles al hacer scroll
+$('#mosaic-container').on('mousewheel', function(event) {
+  event.preventDefault();
+  var scale = event.originalEvent.deltaY > 0 ? 1.1 : 0.9; // Ajustar el factor de escala según el scroll
+  $(this).css('transform', 'scale(' + scale + ')');
 });
